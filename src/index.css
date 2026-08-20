@@ -572,12 +572,6 @@ textarea.form-control {
   border-radius: 4px;
 }
 
-.europass-official-main {
-  flex: 1;
-  min-width: 0;
-  text-align: center;
-}
-
 .europass-official-name {
   font-size: 1.7rem;
   margin-bottom: 0.35rem;

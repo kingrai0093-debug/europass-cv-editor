@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { EuropassCVData } from './types';
 import { sampleCVData } from './initialData';
 import html2pdf from 'html2pdf.js';
+import { jsPDF } from 'jspdf';
 import { FormEditor } from './components/FormEditor';
 import { PreviewCV } from './components/PreviewCV';
 import { PreviewCoverLetter } from './components/PreviewCoverLetter';
@@ -96,9 +97,67 @@ export function App() {
     localStorage.setItem('adminConfig', JSON.stringify(adminConfig));
   }, [adminConfig]);
 
+  // Keep <html lang> in sync so print CSS can target the Nepali watermark
+  useEffect(() => {
+    document.documentElement.lang = cvData.lang || 'en';
+  }, [cvData.lang]);
 
 
-  /* Export CV or Cover Letter to PDF using html2pdf and native save */
+
+  /* Export CV or Cover Letter to PDF using html2pdf and native save.
+     For the Nepali CV, export with a Nepal-flag watermark centered on EVERY page. */
+  const exportNepaliPdf = async (element: HTMLElement, filename: string) => {
+    const wm = document.querySelector<HTMLElement>('.nepal-watermark');
+    if (wm) wm.style.display = 'none';
+    await new Promise(r => setTimeout(r, 80));
+    try {
+      const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+
+      const flag = new Image();
+      flag.src = `${import.meta.env.BASE_URL}nepal.png`;
+      await new Promise(res => { flag.onload = () => res(undefined); flag.onerror = () => res(undefined); });
+
+      if (flag.naturalWidth > 0) {
+        const ctx = canvas.getContext('2d');
+        const pageH = Math.round(canvas.width * (297 / 210));
+        const wmW = canvas.width * 0.53;
+        const wmH = (wmW * flag.naturalHeight) / flag.naturalWidth;
+        ctx.globalAlpha = 0.14;
+        for (let y = 0; y < canvas.height; y += pageH) {
+          ctx.drawImage(flag, (canvas.width - wmW) / 2, y + (pageH - wmH) / 2, wmW, wmH);
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+      const pdfW = pdf.internal.pageSize.getWidth();
+      const pdfH = pdf.internal.pageSize.getHeight();
+      const totalH = pdfW * (canvas.height / canvas.width);
+      let remaining = totalH;
+      let yOff = 0;
+      let first = true;
+      while (remaining > 0) {
+        const sliceH = Math.min(remaining, pdfH);
+        const srcY = Math.round((yOff / totalH) * canvas.height);
+        const srcH = Math.round((sliceH / totalH) * canvas.height);
+        if (!first) pdf.addPage();
+        pdf.addImage(canvas, 'JPEG', 0, 0, pdfW, sliceH, undefined, 'FAST', 0, 0, srcY, canvas.width, srcH);
+        remaining -= sliceH;
+        yOff += sliceH;
+        first = false;
+      }
+
+      if ((window as any).AndroidPrinter) {
+        const base64Data = pdf.output('datauristring').split(',')[1];
+        (window as any).AndroidPrinter.savePdfToDownloads(base64Data, filename);
+      } else {
+        pdf.save(filename);
+      }
+    } finally {
+      if (wm) wm.style.display = '';
+    }
+  };
+
   const executeDownload = (mode: 'cv' | 'coverLetter') => {
     const docName = mode === 'coverLetter' ? 'Cover_Letter' : 'CV';
     const filename = `Europass_${docName}_${cvData.personal.firstName}_${cvData.personal.lastName}.pdf`;
@@ -106,6 +165,11 @@ export function App() {
     const element = document.getElementById(mode === 'coverLetter' ? 'europass-cover-letter-document' : 'europass-cv-document');
     if (!element) {
       alert(mode === 'coverLetter' ? 'No cover letter found. Please write a cover letter first.' : 'CV preview not found. Please try again.');
+      return;
+    }
+
+    if (mode === 'cv' && cvData.lang === 'ne') {
+      exportNepaliPdf(element, filename);
       return;
     }
 

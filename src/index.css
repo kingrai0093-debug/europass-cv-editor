@@ -467,7 +467,7 @@ textarea.form-control {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
+  width: 360px;
   height: auto;
   display: block;
   opacity: 0.14;
@@ -1050,8 +1050,20 @@ textarea.form-control {
     margin: 0 !important;
   }
   
+  /* Nepal flag watermark on EVERY printed page (only for the Nepali translation).
+     The body background repeats on each printed page; the asset already has
+     14% opacity baked in since CSS cannot fade background images. */
+  html[lang="ne"] body {
+    background-image: url('/europass-cv-editor/nepal-watermark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 420px auto;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
   .nepal-watermark {
-    display: block !important; /* Ensure it shows in print */
+    display: none !important; /* print watermark comes from the body background on every page */
   }
 
   /* Keep split sidebar layout background consistent across all page splits */

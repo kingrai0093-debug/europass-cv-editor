@@ -17,6 +17,15 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
     return (
       <div id="europass-cv-document" className="cv-paper template-sidebar" style={styleVariable}>
 
+        {lang === 'ne' && (
+          <img
+            src={`${import.meta.env.BASE_URL}nepal.png`}
+            alt=""
+            aria-hidden="true"
+            className="nepal-watermark"
+          />
+        )}
+
         {/* Left Column Sidebar */}
         <div className="sidebar-left-col">
           {personal.avatarUrl ? (
@@ -180,6 +189,15 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
 
   return (
     <div id="europass-cv-document" className={`cv-paper template-${templateId}`} style={styleVariable}>
+
+      {lang === 'ne' && (
+        <img
+          src={`${import.meta.env.BASE_URL}nepal.png`}
+          alt=""
+          aria-hidden="true"
+          className="nepal-watermark"
+        />
+      )}
 
       {/* Header Section — Official Europass style (photo top-left, centered name + contacts, logo top-right) */}
       <div className="europass-cv-header europass-official-header">

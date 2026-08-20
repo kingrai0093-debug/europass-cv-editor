@@ -184,7 +184,7 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
       {/* Header Section — Official Europass style (photo top-left, centered name + contacts, logo top-right) */}
       <div className="europass-cv-header europass-official-header">
         {personal.avatarUrl && (
-          <img src={personal.avatarUrl} alt="Passport Photo" className="europass-avatar" />
+          <img src={personal.avatarUrl} alt="Passport Photo" className="europass-avatar europass-official-photo" />
         )}
         <div className="europass-official-main">
           <h1 className="europass-name europass-official-name">

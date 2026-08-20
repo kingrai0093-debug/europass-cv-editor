@@ -120,14 +120,16 @@ export function App() {
 
       if (flag.naturalWidth > 0) {
         const ctx = canvas.getContext('2d');
-        const pageH = Math.round(canvas.width * (297 / 210));
-        const wmW = canvas.width * 0.53;
-        const wmH = (wmW * flag.naturalHeight) / flag.naturalWidth;
-        ctx.globalAlpha = 0.14;
-        for (let y = 0; y < canvas.height; y += pageH) {
-          ctx.drawImage(flag, (canvas.width - wmW) / 2, y + (pageH - wmH) / 2, wmW, wmH);
+        if (ctx) {
+          const pageH = Math.round(canvas.width * (297 / 210));
+          const wmW = canvas.width * 0.53;
+          const wmH = (wmW * flag.naturalHeight) / flag.naturalWidth;
+          ctx.globalAlpha = 0.14;
+          for (let y = 0; y < canvas.height; y += pageH) {
+            ctx.drawImage(flag, (canvas.width - wmW) / 2, y + (pageH - wmH) / 2, wmW, wmH);
+          }
+          ctx.globalAlpha = 1;
         }
-        ctx.globalAlpha = 1;
       }
 
       const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
@@ -144,7 +146,10 @@ export function App() {
         const slice = document.createElement('canvas');
         slice.width = canvas.width;
         slice.height = srcH;
-        slice.getContext('2d').drawImage(canvas, 0, srcY, canvas.width, srcH, 0, 0, canvas.width, srcH);
+        const sliceCtx = slice.getContext('2d');
+        if (sliceCtx) {
+          sliceCtx.drawImage(canvas, 0, srcY, canvas.width, srcH, 0, 0, canvas.width, srcH);
+        }
         if (!first) pdf.addPage();
         pdf.addImage(slice, 'JPEG', 0, 0, pdfW, sliceH, undefined, 'FAST');
         remaining -= sliceH;

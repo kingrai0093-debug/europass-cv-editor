@@ -66,7 +66,7 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
         <div className="main-right-col">
           {lang !== 'ne' && (
             <img
-              src="/europass-logo.png"
+              src={`${import.meta.env.BASE_URL}europass-logo.png`}
               alt="RBC Logo"
               style={{ height: '70px', display: 'block', marginLeft: 'auto', marginBottom: '0.5rem' }}
             />
@@ -243,7 +243,7 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
         </div>
         {lang !== 'ne' && (
           <img
-            src="/europass-logo.png"
+            src={`${import.meta.env.BASE_URL}europass-logo.png`}
             alt="RBC Logo"
             style={{ height: '80px', alignSelf: 'flex-start', flexShrink: 0 }}
           />

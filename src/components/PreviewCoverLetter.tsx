@@ -35,7 +35,7 @@ export const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({ data }) 
         </div>
         {lang !== 'ne' && (
           <img
-            src="/europass-logo.png"
+            src={`${import.meta.env.BASE_URL}europass-logo.png`}
             alt="RBC Logo"
             style={{ height: '80px', alignSelf: 'flex-start', flexShrink: 0 }}
           />

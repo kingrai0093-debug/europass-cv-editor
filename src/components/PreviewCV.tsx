@@ -190,47 +190,6 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
           <h1 className="europass-name europass-official-name">
             {personal.firstName} {personal.lastName}
           </h1>
-
-          {(personal.nationality || personal.dateOfBirth || personal.gender) && (
-            <div className="europass-official-idline">
-              {personal.nationality && <span><strong>{t.nationality}:</strong> {personal.nationality}</span>}
-              {personal.dateOfBirth && <span><strong>{t.dateOfBirth}:</strong> {personal.dateOfBirth}</span>}
-              {personal.gender && <span><strong>{t.gender || 'Gender'}:</strong> {personal.gender}</span>}
-            </div>
-          )}
-
-          <div className="europass-official-contacts">
-            {personal.phone && (
-              <div className="europass-meta-item">
-                <Phone size={14} color={primaryColor} />
-                <span><strong>{t.phoneNumber || 'Phone number'}:</strong> {personal.phonePrefix} {personal.phone}</span>
-              </div>
-            )}
-            {personal.email && (
-              <div className="europass-meta-item">
-                <Mail size={14} color={primaryColor} />
-                <span><strong>{t.emailAddress || 'Email address'}:</strong> {personal.email}</span>
-              </div>
-            )}
-            {(personal.address || personal.city) && (
-              <div className="europass-meta-item">
-                <MapPin size={14} color={primaryColor} />
-                <span><strong>{t.home || 'Home'}:</strong> {[personal.address, personal.postalCode, personal.city, personal.country].filter(Boolean).join(', ')}</span>
-              </div>
-            )}
-            {personal.website && (
-              <div className="europass-meta-item">
-                <Globe size={14} color={primaryColor} />
-                <span><strong>{t.website || 'Website'}:</strong> {personal.website}</span>
-              </div>
-            )}
-            {personal.socials && personal.socials.filter(s => s.platform && s.link).map((s, i) => (
-              <div className="europass-meta-item" key={i}>
-                <Globe size={14} color={primaryColor} />
-                <span><strong>{s.platform}:</strong> {s.link}</span>
-              </div>
-            ))}
-          </div>
         </div>
         <div className="europass-official-corner">
           {lang !== 'ne' && (
@@ -240,6 +199,47 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
               className="europass-logo-official"
             />
           )}
+        </div>
+
+        {(personal.nationality || personal.dateOfBirth || personal.gender) && (
+          <div className="europass-official-idline">
+            {personal.nationality && <span><strong>{t.nationality}:</strong> {personal.nationality}</span>}
+            {personal.dateOfBirth && <span><strong>{t.dateOfBirth}:</strong> {personal.dateOfBirth}</span>}
+            {personal.gender && <span><strong>{t.gender || 'Gender'}:</strong> {personal.gender}</span>}
+          </div>
+        )}
+
+        <div className="europass-official-contacts">
+          {personal.phone && (
+            <div className="europass-meta-item">
+              <Phone size={14} color={primaryColor} />
+              <span><strong>{t.phoneNumber || 'Phone number'}:</strong> {personal.phonePrefix} {personal.phone}</span>
+            </div>
+          )}
+          {personal.email && (
+            <div className="europass-meta-item">
+              <Mail size={14} color={primaryColor} />
+              <span><strong>{t.emailAddress || 'Email address'}:</strong> {personal.email}</span>
+            </div>
+          )}
+          {(personal.address || personal.city) && (
+            <div className="europass-meta-item">
+              <MapPin size={14} color={primaryColor} />
+              <span><strong>{t.home || 'Home'}:</strong> {[personal.address, personal.postalCode, personal.city, personal.country].filter(Boolean).join(', ')}</span>
+            </div>
+          )}
+          {personal.website && (
+            <div className="europass-meta-item">
+              <Globe size={14} color={primaryColor} />
+              <span><strong>{t.website || 'Website'}:</strong> {personal.website}</span>
+            </div>
+          )}
+          {personal.socials && personal.socials.filter(s => s.platform && s.link).map((s, i) => (
+            <div className="europass-meta-item" key={i}>
+              <Globe size={14} color={primaryColor} />
+              <span><strong>{s.platform}:</strong> {s.link}</span>
+            </div>
+          ))}
         </div>
       </div>
 

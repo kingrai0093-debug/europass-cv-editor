@@ -79,6 +79,12 @@ export interface CVTranslationDict {
   declaration?: string;
   dateLocation?: string;
   signature?: string;
+  gender?: string;
+  phoneNumber?: string;
+  emailAddress?: string;
+  home?: string;
+  website?: string;
+  aboutMe?: string;
 }
 
 export const DICTIONARIES: Record<string, CVTranslationDict> = {
@@ -125,7 +131,13 @@ export const DICTIONARIES: Record<string, CVTranslationDict> = {
     curriculumVitae: 'Curriculum Vitae (CV)',
     declaration: 'Declaration',
     dateLocation: 'Date / Location',
-    signature: 'Signature'
+    signature: 'Signature',
+    gender: 'Gender',
+    phoneNumber: 'Phone number',
+    emailAddress: 'Email address',
+    home: 'Home',
+    website: 'Website',
+    aboutMe: 'About Me'
   },
   de: {
     personalInfo: 'Persönliche Angaben',

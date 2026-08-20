@@ -535,38 +535,91 @@ textarea.form-control {
   margin-bottom: 0.35rem;
 }
 
-/* Official Europass two-column body layout:
-   narrow left column = section titles, wide right column = dated content */
-.europass-sections {
-  display: block;
+/* Official Europass sample layout:
+   logo top-left, centered name + contact rows, full-width uppercase section titles */
+.europass-official-header {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.25rem;
 }
 
-.europass-section-row {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 0 1.5rem;
-  margin-bottom: 1rem;
+.europass-logo-official {
+  width: 110px;
+  height: auto;
+  flex-shrink: 0;
+  align-self: flex-start;
+  border-radius: 4px;
 }
 
-.europass-section-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.8rem;
+.europass-official-main {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.europass-official-name {
+  font-size: 1.7rem;
+  margin-bottom: 0.35rem;
+}
+
+.europass-official-idline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.25rem;
+  font-size: 0.85rem;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.europass-official-idline strong {
+  color: #0f172a;
+}
+
+.europass-official-contacts {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.europass-official-contacts .europass-meta-item {
+  margin-top: 0;
+}
+
+.europass-official-contacts strong {
+  color: #334155;
+}
+
+.europass-entry {
+  margin-bottom: 0.75rem;
+}
+
+.europass-entry-title {
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.europass-entry-sub {
+  font-weight: 600;
+  font-size: 0.875rem;
   color: var(--primary-theme, #0e47a1);
-  padding-top: 0.15rem;
+  margin-bottom: 0.2rem;
 }
 
-.europass-section-content {
-  border-left: 1px solid #cbd5e1;
-  padding-left: 1.25rem;
+.europass-entry-line {
+  font-size: 0.85rem;
+  color: #475569;
 }
 
-.europass-section-content .europass-item-grid {
-  grid-template-columns: 110px 1fr;
-  gap: 0.75rem;
-  margin-bottom: 0.6rem;
+.europass-entry-desc {
+  white-space: pre-line;
+  color: #334155;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
 }
 
 /* Self-assessment Grid for Mother Tongue & Foreign Languages */
@@ -874,8 +927,7 @@ textarea.form-control {
    ========================================================================== */
 
 /* Prevent awkward element breaking across pages */
-.europass-section-row,
-.europass-section-content,
+.europass-entry,
 .europass-item-grid,
 .europass-section-header,
 .cefr-table,

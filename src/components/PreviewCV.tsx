@@ -181,8 +181,11 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
   return (
     <div id="europass-cv-document" className={`cv-paper template-${templateId}`} style={styleVariable}>
 
-      {/* Header Section — Official Europass style (sample: centered name + contacts, photo & logo top-right) */}
+      {/* Header Section — Official Europass style (photo top-left, centered name + contacts, logo top-right) */}
       <div className="europass-cv-header europass-official-header">
+        {personal.avatarUrl && (
+          <img src={personal.avatarUrl} alt="Passport Photo" className="europass-avatar" />
+        )}
         <div className="europass-official-main">
           <h1 className="europass-name europass-official-name">
             {personal.firstName} {personal.lastName}
@@ -230,9 +233,6 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
           </div>
         </div>
         <div className="europass-official-corner">
-          {personal.avatarUrl && (
-            <img src={personal.avatarUrl} alt="Passport Photo" className="europass-avatar" />
-          )}
           {lang !== 'ne' && (
             <img
               src={`${import.meta.env.BASE_URL}europass-logo.png`}

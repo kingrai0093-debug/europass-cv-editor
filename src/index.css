@@ -536,7 +536,7 @@ textarea.form-control {
 }
 
 /* Official Europass sample layout:
-   centered name + contact rows, photo & europass-logo in top-right corner */
+   photo top-left, centered name + contact rows, europass-logo top-right */
 .europass-official-header {
   flex-direction: row;
   align-items: flex-start;
@@ -549,11 +549,6 @@ textarea.form-control {
   align-items: flex-start;
   gap: 0.75rem;
   flex-shrink: 0;
-}
-
-.europass-official-corner .europass-avatar {
-  width: 100px;
-  height: 120px;
 }
 
 .europass-logo-official {

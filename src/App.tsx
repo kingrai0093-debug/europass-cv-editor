@@ -103,7 +103,7 @@ export function App() {
     const docName = mode === 'coverLetter' ? 'Cover_Letter' : 'CV';
     const filename = `Europass_${docName}_${cvData.personal.firstName}_${cvData.personal.lastName}.pdf`;
     
-    const element = document.getElementById('europass-cv-document');
+    const element = document.getElementById(mode === 'coverLetter' ? 'europass-cover-letter-document' : 'europass-cv-document');
     if (!element) return;
 
     // html2pdf options

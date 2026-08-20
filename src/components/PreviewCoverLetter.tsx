@@ -17,7 +17,7 @@ export const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({ data }) 
   return (
     <div id="europass-cover-letter-document" className={`cv-paper template-${templateId}`} style={styleVariable}>
 
-      <div className="europass-cv-header" style={{ position: 'relative', marginBottom: '2rem' }}>
+      <div className="europass-cv-header" style={{ position: 'relative', marginBottom: '1.25rem' }}>
         {lang !== 'ne' && (
           <img 
             src="/rbc_app_icon.png" 

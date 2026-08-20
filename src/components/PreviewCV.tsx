@@ -78,7 +78,7 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
 
           {/* Work */}
           {workExperiences.length > 0 && (
-            <section style={{ marginBottom: '1.5rem' }}>
+            <section style={{ marginBottom: '1rem' }}>
               <h2 className="europass-section-header">{t.workExperience}</h2>
               {workExperiences.map(work => (
                 <div key={work.id} style={{ marginBottom: '1rem' }}>
@@ -92,7 +92,7 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
 
           {/* Education */}
           {educationList.length > 0 && (
-            <section style={{ marginBottom: '1.5rem' }}>
+            <section style={{ marginBottom: '1rem' }}>
               <h2 className="europass-section-header">{t.educationTraining}</h2>
               {educationList.map(edu => (
                 <div key={edu.id} style={{ marginBottom: '0.85rem' }}>
@@ -105,7 +105,7 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
 
           {/* Certifications */}
           {data.certifications && data.certifications.length > 0 && (
-            <section style={{ marginBottom: '1.5rem' }}>
+            <section style={{ marginBottom: '1rem' }}>
               <h2 className="europass-section-header">{t.certifications}</h2>
               {data.certifications.map(cert => (
                 <div key={cert.id} style={{ marginBottom: '0.85rem' }}>
@@ -119,7 +119,7 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
 
           {/* Management & Interpersonal Skills */}
           {skillsList.length > 0 && (
-            <section style={{ marginBottom: '1.5rem' }}>
+            <section style={{ marginBottom: '1rem' }}>
               <h2 className="europass-section-header">{t.managementSkills}</h2>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
                 {skillsList.map((skill, idx) => (
@@ -131,7 +131,7 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
 
           {/* Driving Licences */}
           {drivingLicences.length > 0 && (
-            <section style={{ marginBottom: '1.5rem' }}>
+            <section style={{ marginBottom: '1rem' }}>
               <h2 className="europass-section-header">{t.drivingLicence}</h2>
               <p style={{ fontWeight: 600, color: '#334155', fontSize: '0.875rem' }}>
                 {t.drivingLicenceCategory}: {drivingLicences.join(', ')}
@@ -149,12 +149,12 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
 
           {/* Declaration / Certification */}
           {personal.declaration && personal.declaration.trim() !== '' && (
-            <section style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid #cbd5e1' }}>
+            <section style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid #cbd5e1' }}>
               <h2 className="europass-section-header" style={{ marginBottom: '0.75rem', fontSize: '1rem' }}>{t.declaration || 'Declaration'}</h2>
               <p style={{ fontStyle: 'italic', color: '#475569', fontSize: '0.85rem', lineHeight: '1.5' }}>
                 {personal.declaration}
               </p>
-              <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+              <div style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
                   <div style={{ borderBottom: '1px solid #94a3b8', width: '150px', marginBottom: '0.5rem' }}></div>
                   <span style={{ fontSize: '0.8rem', color: '#64748b' }}>{t.dateLocation || 'Date / Location'}</span>
@@ -444,12 +444,12 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
 
       {/* Declaration / Certification */}
       {personal.declaration && personal.declaration.trim() !== '' && (
-        <section style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid #cbd5e1' }}>
+        <section style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid #cbd5e1' }}>
           <h2 className="europass-section-header" style={{ marginBottom: '0.75rem', fontSize: '1rem' }}>{t.declaration || 'Declaration'}</h2>
           <p style={{ fontStyle: 'italic', color: '#475569', fontSize: '0.85rem', lineHeight: '1.5' }}>
             {personal.declaration}
           </p>
-          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+          <div style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
             <div>
               <div style={{ borderBottom: '1px solid #94a3b8', width: '150px', marginBottom: '0.5rem' }}></div>
               <span style={{ fontSize: '0.8rem', color: '#64748b' }}>{t.dateLocation || 'Date / Location'}</span>

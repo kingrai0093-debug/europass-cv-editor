@@ -17,15 +17,8 @@ export const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({ data }) 
   return (
     <div id="europass-cover-letter-document" className={`cv-paper template-${templateId}`} style={styleVariable}>
 
-      <div className="europass-cv-header" style={{ position: 'relative', marginBottom: '1.25rem' }}>
-        {lang !== 'ne' && (
-          <img 
-            src="/europass-logo.png" 
-            alt="RBC Logo" 
-            style={{ position: 'absolute', top: '-10px', right: '0', height: '80px' }}
-          />
-        )}
-        <div style={{ marginTop: '25px', display: 'flex', width: '100%', gap: '1.5rem' }}>
+      <div className="europass-cv-header" style={{ marginBottom: '1.25rem' }}>
+        <div style={{ display: 'flex', flex: 1, width: '100%', gap: '1.5rem' }}>
           {personal.avatarUrl ? (
             <img src={personal.avatarUrl} alt="Passport Photo" className="europass-avatar" style={{ width: '80px', height: '95px' }} />
           ) : (
@@ -40,6 +33,13 @@ export const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({ data }) 
             </div>
           </div>
         </div>
+        {lang !== 'ne' && (
+          <img
+            src="/europass-logo.png"
+            alt="RBC Logo"
+            style={{ height: '80px', alignSelf: 'flex-start', flexShrink: 0 }}
+          />
+        )}
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', fontSize: '0.875rem', background: '#f8fafc', padding: '1rem', borderRadius: '6px', border: '1px solid #e2e8f0' }}>

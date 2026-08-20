@@ -64,6 +64,13 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
 
         {/* Right Main Column */}
         <div className="main-right-col">
+          {lang !== 'ne' && (
+            <img
+              src="/europass-logo.png"
+              alt="RBC Logo"
+              style={{ height: '70px', display: 'block', marginLeft: 'auto', marginBottom: '0.5rem' }}
+            />
+          )}
           <h1 className="europass-name" style={{ fontSize: '2rem' }}>{personal.firstName} {personal.lastName}</h1>
           {personal.aboutMe && <p style={{ fontStyle: 'italic', color: '#475569', marginBottom: '1.25rem' }}>"{personal.aboutMe}"</p>}
 
@@ -175,15 +182,8 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
     <div id="europass-cv-document" className={`cv-paper template-${templateId}`} style={styleVariable}>
 
       {/* Header Section */}
-      <div className="europass-cv-header" style={{ position: 'relative' }}>
-        {lang !== 'ne' && (
-          <img 
-            src="/europass-logo.png" 
-            alt="RBC Logo" 
-            style={{ position: 'absolute', top: '-10px', right: '0', height: '80px' }}
-          />
-        )}
-        <div style={{ marginTop: '25px', display: 'flex', width: '100%', gap: '2rem' }}>
+      <div className="europass-cv-header">
+        <div style={{ display: 'flex', flex: 1, width: '100%', gap: '2rem' }}>
           {personal.avatarUrl ? (
             <img src={personal.avatarUrl} alt="Passport Photo" className="europass-avatar" />
           ) : (
@@ -240,7 +240,13 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
             )}
           </div>
         </div>
-        </div>
+        {lang !== 'ne' && (
+          <img
+            src="/europass-logo.png"
+            alt="RBC Logo"
+            style={{ height: '80px', alignSelf: 'flex-start', flexShrink: 0 }}
+          />
+        )}
       </div>
 
       {/* Dedicated Passport & Identity Details Block */}

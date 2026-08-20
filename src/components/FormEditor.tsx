@@ -468,6 +468,79 @@ export const FormEditor: React.FC<FormEditorProps> = ({ data, onChange, activeTa
               </div>
             </div>
 
+            <div className="form-group" style={{ marginTop: '1rem' }}>
+              <label className="form-label">Social Links (LinkedIn, GitHub, Facebook…)</label>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '0.6rem' }}>
+                {['LinkedIn', 'GitHub', 'Facebook'].map(p => {
+                  const exists = (data.personal.socials || []).some(s => s.platform === p);
+                  return (
+                    <button
+                      key={p}
+                      type="button"
+                      disabled={exists}
+                      title={exists ? 'Already added' : `Add ${p}`}
+                      style={{
+                        fontSize: '0.75rem',
+                        padding: '0.25rem 0.6rem',
+                        background: exists ? '#e9eef5' : '#0e47a1',
+                        color: exists ? '#7a8699' : '#fff',
+                        border: '1px solid #0e47a1',
+                        borderRadius: '4px',
+                        cursor: exists ? 'default' : 'pointer'
+                      }}
+                      onClick={() => {
+                        if (exists) return;
+                        const socials = [...(data.personal.socials || [])];
+                        const base = p === 'LinkedIn' ? 'https://linkedin.com/in/' : p === 'GitHub' ? 'https://github.com/' : 'https://facebook.com/';
+                        socials.push({ platform: p, link: base });
+                        updatePersonal('socials', socials);
+                      }}
+                    >
+                      + {p}
+                    </button>
+                  );
+                })}
+              </div>
+              {(data.personal.socials || []).filter(s => s.platform || s.link).map((s, i) => (
+                <div key={i} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.4rem', alignItems: 'center' }}>
+                  <input
+                    type="text"
+                    className="form-control"
+                    style={{ width: '32%' }}
+                    placeholder="Platform (e.g. LinkedIn)"
+                    value={s.platform}
+                    onChange={(e) => {
+                      const socials = [...(data.personal.socials || [])];
+                      socials[i] = { ...socials[i], platform: e.target.value };
+                      updatePersonal('socials', socials);
+                    }}
+                  />
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="https://…"
+                    value={s.link}
+                    onChange={(e) => {
+                      const socials = [...(data.personal.socials || [])];
+                      socials[i] = { ...socials[i], link: e.target.value };
+                      updatePersonal('socials', socials);
+                    }}
+                  />
+                  <button
+                    type="button"
+                    title="Remove"
+                    style={{ border: 'none', background: 'none', color: '#d33', cursor: 'pointer', fontSize: '0.9rem' }}
+                    onClick={() => {
+                      const socials = (data.personal.socials || []).filter((_, j) => j !== i);
+                      updatePersonal('socials', socials);
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+
             <div className="form-group">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
                 <label className="form-label" style={{ margin: 0 }}>About Me / Executive Summary</label>

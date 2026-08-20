@@ -118,44 +118,47 @@ export function App() {
       flag.src = `${import.meta.env.BASE_URL}nepal.png`;
       await new Promise(res => { flag.onload = () => res(undefined); flag.onerror = () => res(undefined); });
 
+      const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+      const pdfW = pdf.internal.pageSize.getWidth();
+      const pdfH = pdf.internal.pageSize.getHeight();
+      const totalH = pdfW * (canvas.height / canvas.width);
+      const slices: { sliceH: number; srcY: number; srcH: number }[] = [];
+      let remaining = totalH;
+      let yOff = 0;
+      while (remaining > 0) {
+        const sliceH = Math.min(remaining, pdfH);
+        const srcY = Math.round((yOff / totalH) * canvas.height);
+        const srcH = Math.round((sliceH / totalH) * canvas.height);
+        slices.push({ sliceH, srcY, srcH });
+        remaining -= sliceH;
+        yOff += sliceH;
+      }
+
+      // watermark centered within each ACTUAL page slice (including a partial last page)
       if (flag.naturalWidth > 0) {
         const ctx = canvas.getContext('2d');
         if (ctx) {
-          const pageH = Math.round(canvas.width * (297 / 210));
           const wmW = canvas.width * 0.53;
           const wmH = (wmW * flag.naturalHeight) / flag.naturalWidth;
           ctx.globalAlpha = 0.14;
-          for (let y = 0; y < canvas.height; y += pageH) {
-            ctx.drawImage(flag, (canvas.width - wmW) / 2, y + (pageH - wmH) / 2, wmW, wmH);
+          for (const sl of slices) {
+            ctx.drawImage(flag, (canvas.width - wmW) / 2, sl.srcY + (sl.srcH - wmH) / 2, wmW, wmH);
           }
           ctx.globalAlpha = 1;
         }
       }
 
-      const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-      const pdfW = pdf.internal.pageSize.getWidth();
-      const pdfH = pdf.internal.pageSize.getHeight();
-      const totalH = pdfW * (canvas.height / canvas.width);
-      let remaining = totalH;
-      let yOff = 0;
-      let first = true;
-      while (remaining > 0) {
-        const sliceH = Math.min(remaining, pdfH);
-        const srcY = Math.round((yOff / totalH) * canvas.height);
-        const srcH = Math.round((sliceH / totalH) * canvas.height);
+      slices.forEach((sl, idx) => {
         const slice = document.createElement('canvas');
         slice.width = canvas.width;
-        slice.height = srcH;
+        slice.height = sl.srcH;
         const sliceCtx = slice.getContext('2d');
         if (sliceCtx) {
-          sliceCtx.drawImage(canvas, 0, srcY, canvas.width, srcH, 0, 0, canvas.width, srcH);
+          sliceCtx.drawImage(canvas, 0, sl.srcY, canvas.width, sl.srcH, 0, 0, canvas.width, sl.srcH);
         }
-        if (!first) pdf.addPage();
-        pdf.addImage(slice, 'JPEG', 0, 0, pdfW, sliceH, undefined, 'FAST');
-        remaining -= sliceH;
-        yOff += sliceH;
-        first = false;
-      }
+        if (idx > 0) pdf.addPage();
+        pdf.addImage(slice, 'JPEG', 0, 0, pdfW, sl.sliceH, undefined, 'FAST');
+      });
 
       if ((window as any).AndroidPrinter) {
         const base64Data = pdf.output('datauristring').split(',')[1];

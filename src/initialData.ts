@@ -29,7 +29,8 @@ export const sampleCVData: EuropassCVData = {
     avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
     socials: [
       { platform: 'LinkedIn', link: 'https://linkedin.com/in/alexandernovak' },
-      { platform: 'GitHub', link: 'https://github.com/alexnovak-eu' }
+      { platform: 'GitHub', link: 'https://github.com/alexnovak-eu' },
+      { platform: 'Facebook', link: 'https://facebook.com/alexandernovak' }
     ]
   },
   workExperiences: [

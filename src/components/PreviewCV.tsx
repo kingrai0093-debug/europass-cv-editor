@@ -240,6 +240,7 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
             )}
           </div>
         </div>
+        </div>
         {lang !== 'ne' && (
           <img
             src="/europass-logo.png"

@@ -547,15 +547,15 @@ textarea.form-control {
 
 .europass-official-main {
   text-align: center;
-  padding: 0 140px;
+  padding: 0 110px;
 }
 
 .europass-official-photo {
   position: absolute;
   top: 0;
   left: 0;
-  width: 110px;
-  height: 130px;
+  width: 90px;
+  height: 110px;
 }
 
 .europass-official-corner {
@@ -566,7 +566,7 @@ textarea.form-control {
 }
 
 .europass-logo-official {
-  width: 100px;
+  width: 80px;
   height: auto;
   flex-shrink: 0;
   border-radius: 4px;

@@ -20,12 +20,12 @@ export const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({ data }) 
       <div className="europass-cv-header" style={{ position: 'relative', marginBottom: '1.25rem' }}>
         {lang !== 'ne' && (
           <img 
-            src="/rbc_app_icon.png" 
+            src="/europass-logo.png" 
             alt="RBC Logo" 
             style={{ position: 'absolute', top: '-10px', right: '0', height: '80px' }}
           />
         )}
-        <div style={{ marginTop: '45px', display: 'flex', width: '100%', gap: '1.5rem' }}>
+        <div style={{ marginTop: '25px', display: 'flex', width: '100%', gap: '1.5rem' }}>
           {personal.avatarUrl ? (
             <img src={personal.avatarUrl} alt="Passport Photo" className="europass-avatar" style={{ width: '80px', height: '95px' }} />
           ) : (

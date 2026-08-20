@@ -590,13 +590,13 @@ textarea.form-control {
 }
 .cv-paper.template-modern .europass-cv-header {
   background: #f8fafc;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 6px;
   border-bottom: 3px solid var(--primary-theme, #0e47a1);
 }
 .cv-paper.template-modern .europass-section-header {
   background: #f1f5f9;
-  padding: 0.4rem 0.8rem;
+  padding: 0.3rem 0.8rem;
   border-left: 4px solid var(--primary-theme, #0e47a1);
   border-bottom: none;
   border-radius: 0 4px 4px 0;
@@ -920,7 +920,7 @@ textarea.form-control {
   .cv-paper {
     box-shadow: none !important;
     border: none !important;
-    padding: 10mm 15mm !important;
+    padding: 8mm 12mm !important;
     width: 210mm !important;
     min-width: 210mm !important;
     max-width: 210mm !important;

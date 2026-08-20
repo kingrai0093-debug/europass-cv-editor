@@ -104,7 +104,10 @@ export function App() {
     const filename = `Europass_${docName}_${cvData.personal.firstName}_${cvData.personal.lastName}.pdf`;
     
     const element = document.getElementById(mode === 'coverLetter' ? 'europass-cover-letter-document' : 'europass-cv-document');
-    if (!element) return;
+    if (!element) {
+      alert(mode === 'coverLetter' ? 'No cover letter found. Please write a cover letter first.' : 'CV preview not found. Please try again.');
+      return;
+    }
 
     // html2pdf options
     const opt = {

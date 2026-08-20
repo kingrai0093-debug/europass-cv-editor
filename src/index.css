@@ -536,18 +536,30 @@ textarea.form-control {
 }
 
 /* Official Europass sample layout:
-   logo top-left, centered name + contact rows, full-width uppercase section titles */
+   centered name + contact rows, photo & europass-logo in top-right corner */
 .europass-official-header {
   flex-direction: row;
   align-items: flex-start;
   gap: 1.25rem;
 }
 
+.europass-official-corner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.europass-official-corner .europass-avatar {
+  width: 100px;
+  height: 120px;
+}
+
 .europass-logo-official {
-  width: 110px;
+  width: 100px;
   height: auto;
   flex-shrink: 0;
-  align-self: flex-start;
   border-radius: 4px;
 }
 

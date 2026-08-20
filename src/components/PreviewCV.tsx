@@ -1,7 +1,7 @@
 import React from 'react';
 import type { EuropassCVData } from '../types';
 import { getTranslation, SUPPORTED_LANGUAGES } from '../data/translations';
-import { Mail, Phone, MapPin, Globe, Calendar, User, ShieldCheck } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe, Calendar, User } from 'lucide-react';
 
 interface PreviewProps {
   data: EuropassCVData;
@@ -250,224 +250,189 @@ export const PreviewCV: React.FC<PreviewProps> = ({ data }) => {
         )}
       </div>
 
-      {/* Dedicated Passport & Identity Details Block */}
-      {personal.passport?.passportNumber && (
-        <section style={{ background: '#f8fafc', padding: '0.85rem 1.25rem', borderRadius: '6px', border: '1.5px solid #d0e1ff', marginBottom: '1.5rem' }}>
-          <h2 style={{ fontSize: '0.95rem', fontWeight: 700, color: primaryColor, textTransform: 'uppercase', marginBottom: '0.6rem', display: 'flex', alignItems: 'center', gap: '0.4rem', borderBottom: '1px solid #cbd5e1', paddingBottom: '0.25rem' }}>
-            <ShieldCheck size={18} /> {t.passportDetails}
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.4rem 1.5rem', fontSize: '0.85rem' }}>
-            <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.passportNo}:</span> <strong style={{ color: '#0f172a' }}>{personal.passport.passportNumber}</strong></div>
-            <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.issuingAuthority}:</span> <strong style={{ color: '#0f172a' }}>{personal.passport.issuingCountry || 'N/A'}</strong></div>
-            {personal.passport.issueDate && <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.issueDate}:</span> <span>{personal.passport.issueDate}</span></div>}
-            {personal.passport.expiryDate && <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.expiryDate}:</span> <span style={{ color: '#c2410c', fontWeight: 700 }}>{personal.passport.expiryDate}</span></div>}
-            {personal.passport.placeOfIssue && <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.placeOfIssue}:</span> <span>{personal.passport.placeOfIssue}</span></div>}
-            {personal.passport.visaStatus && <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.visaStatus}:</span> <span style={{ color: '#047857', fontWeight: 700 }}>{personal.passport.visaStatus}</span></div>}
-          </div>
-        </section>
-      )}
-
-      {/* Work Experience */}
-      {workExperiences.length > 0 && (
-        <section>
-          <h2 className="europass-section-header">{t.workExperience}</h2>
-          {workExperiences.map((work) => (
-            <div className="europass-item-grid" key={work.id}>
-              <div className="europass-date-col">
-                {work.startDate} – {work.isCurrent ? t.present : work.endDate}
-              </div>
-              <div>
-                <div className="europass-title">{work.jobTitle}</div>
-                <div className="europass-subtitle">
-                  {work.employer} {work.city && `| ${work.city}, ${work.country}`}
-                </div>
-                <p style={{ whiteSpace: 'pre-line', color: '#334155', fontSize: '0.875rem' }}>
-                  {work.description}
-                </p>
+      {/* Two-column Europass body: section titles left, dated content right */}
+      <div className="europass-sections">
+        {personal.passport?.passportNumber && (
+          <div className="europass-section-row">
+            <div className="europass-section-title">{t.passportDetails}</div>
+            <div className="europass-section-content">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.3rem 1.5rem', fontSize: '0.85rem' }}>
+                <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.passportNo}:</span> <strong style={{ color: '#0f172a' }}>{personal.passport.passportNumber}</strong></div>
+                <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.issuingAuthority}:</span> <strong style={{ color: '#0f172a' }}>{personal.passport.issuingCountry || 'N/A'}</strong></div>
+                {personal.passport.issueDate && <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.issueDate}:</span> <span>{personal.passport.issueDate}</span></div>}
+                {personal.passport.expiryDate && <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.expiryDate}:</span> <span style={{ color: '#c2410c', fontWeight: 700 }}>{personal.passport.expiryDate}</span></div>}
+                {personal.passport.placeOfIssue && <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.placeOfIssue}:</span> <span>{personal.passport.placeOfIssue}</span></div>}
+                {personal.passport.visaStatus && <div><span style={{ color: '#64748b', fontWeight: 600 }}>{t.visaStatus}:</span> <span style={{ color: '#047857', fontWeight: 700 }}>{personal.passport.visaStatus}</span></div>}
               </div>
             </div>
-          ))}
-        </section>
-      )}
+          </div>
+        )}
 
-      {/* Education & Training */}
-      {educationList.length > 0 && (
-        <section>
-          <h2 className="europass-section-header">{t.educationTraining}</h2>
-          {educationList.map((edu) => (
-            <div className="europass-item-grid" key={edu.id}>
-              <div className="europass-date-col">
-                {edu.startDate} – {edu.isCurrent ? t.ongoing : edu.endDate}
-              </div>
-              <div>
-                <div className="europass-title">{edu.title}</div>
-                <div className="europass-subtitle">
-                  {edu.institution} {edu.city && `| ${edu.city}, ${edu.country}`}
-                </div>
-                {edu.eqfLevel && (
-                  <div style={{ fontSize: '0.8rem', fontWeight: 600, color: primaryColor, marginBottom: '0.2rem' }}>
-                    {edu.eqfLevel}
+        {workExperiences.length > 0 && (
+          <div className="europass-section-row">
+            <div className="europass-section-title">{t.workExperience}</div>
+            <div className="europass-section-content">
+              {workExperiences.map((work) => (
+                <div className="europass-item-grid" key={work.id}>
+                  <div className="europass-date-col">{work.startDate} – {work.isCurrent ? t.present : work.endDate}</div>
+                  <div>
+                    <div className="europass-title">{work.jobTitle}</div>
+                    <div className="europass-subtitle">{work.employer} {work.city && `| ${work.city}, ${work.country}`}</div>
+                    <p style={{ whiteSpace: 'pre-line', color: '#334155', fontSize: '0.85rem' }}>{work.description}</p>
                   </div>
-                )}
-                {edu.fieldOfStudy && (
-                  <p style={{ color: '#475569', fontSize: '0.85rem' }}>
-                    {t.fieldOfStudy}: {edu.fieldOfStudy}
-                  </p>
-                )}
-              </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </section>
-      )}
+          </div>
+        )}
 
-      {/* Certifications & Licenses */}
-      {data.certifications && data.certifications.length > 0 && (
-        <section>
-          <h2 className="europass-section-header">{t.certifications}</h2>
-          {data.certifications.map((cert) => (
-            <div className="europass-item-grid" key={cert.id}>
-              <div className="europass-date-col">
-                {cert.issueDate} {cert.expiryDate ? `– ${cert.expiryDate}` : ''}
-              </div>
-              <div>
-                <div className="europass-title">{cert.title}</div>
-                <div className="europass-subtitle">{cert.issuingOrganization}</div>
-                {cert.credentialId && (
-                  <div style={{ fontSize: '0.825rem', color: '#475569' }}>
-                    {t.credentialId}: <strong>{cert.credentialId}</strong>
+        {educationList.length > 0 && (
+          <div className="europass-section-row">
+            <div className="europass-section-title">{t.educationTraining}</div>
+            <div className="europass-section-content">
+              {educationList.map((edu) => (
+                <div className="europass-item-grid" key={edu.id}>
+                  <div className="europass-date-col">{edu.startDate} – {edu.isCurrent ? t.ongoing : edu.endDate}</div>
+                  <div>
+                    <div className="europass-title">{edu.title}</div>
+                    <div className="europass-subtitle">{edu.institution} {edu.city && `| ${edu.city}, ${edu.country}`}</div>
+                    {edu.eqfLevel && <div style={{ fontSize: '0.8rem', fontWeight: 600, color: primaryColor, marginBottom: '0.2rem' }}>{edu.eqfLevel}</div>}
+                    {edu.fieldOfStudy && <p style={{ color: '#475569', fontSize: '0.85rem' }}>{t.fieldOfStudy}: {edu.fieldOfStudy}</p>}
                   </div>
-                )}
-                {cert.credentialUrl && (
-                  <a href={cert.credentialUrl} target="_blank" rel="noreferrer" style={{ fontSize: '0.775rem', color: primaryColor, textDecoration: 'underline' }}>
-                    {t.verifyCredential}
-                  </a>
-                )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {data.certifications && data.certifications.length > 0 && (
+          <div className="europass-section-row">
+            <div className="europass-section-title">{t.certifications}</div>
+            <div className="europass-section-content">
+              {data.certifications.map((cert) => (
+                <div className="europass-item-grid" key={cert.id}>
+                  <div className="europass-date-col">{cert.issueDate} {cert.expiryDate ? `– ${cert.expiryDate}` : ''}</div>
+                  <div>
+                    <div className="europass-title">{cert.title}</div>
+                    <div className="europass-subtitle">{cert.issuingOrganization}</div>
+                    {cert.credentialId && <div style={{ fontSize: '0.825rem', color: '#475569' }}>{t.credentialId}: <strong>{cert.credentialId}</strong></div>}
+                    {cert.credentialUrl && <a href={cert.credentialUrl} target="_blank" rel="noreferrer" style={{ fontSize: '0.775rem', color: primaryColor, textDecoration: 'underline' }}>{t.verifyCredential}</a>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {languages.length > 0 && (
+          <div className="europass-section-row">
+            <div className="europass-section-title">{t.languageSkills}</div>
+            <div className="europass-section-content">
+              {languages.filter(l => l.isMotherTongue).length > 0 && (
+                <div style={{ marginBottom: '0.6rem' }}>
+                  <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>{t.motherTongue}: </span>
+                  <span style={{ fontWeight: 600, color: primaryColor }}>{languages.filter(l => l.isMotherTongue).map(l => l.language).join(', ')}</span>
+                </div>
+              )}
+
+              {languages.filter(l => !l.isMotherTongue).length > 0 && (
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.4rem' }}>{t.otherLanguages}:</div>
+                  <table className="cefr-table">
+                    <thead>
+                      <tr>
+                        <th rowSpan={2} style={{ textAlign: 'left', width: '22%' }}>{SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name || 'Language'}</th>
+                        <th colSpan={2}>{t.understanding}</th>
+                        <th colSpan={2}>{t.speaking}</th>
+                        <th>{t.writing}</th>
+                      </tr>
+                      <tr>
+                        <th>{t.listening}</th>
+                        <th>{t.reading}</th>
+                        <th>{t.spokenInteraction}</th>
+                        <th>{t.spokenProduction}</th>
+                        <th>{t.writing}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {languages.filter(l => !l.isMotherTongue).map((langItem) => (
+                        <tr key={langItem.id}>
+                          <td style={{ textAlign: 'left', fontWeight: 700 }}>{langItem.language}</td>
+                          <td><span className="cefr-badge">{langItem.listening}</span></td>
+                          <td><span className="cefr-badge">{langItem.reading}</span></td>
+                          <td><span className="cefr-badge">{langItem.spokenInteraction}</span></td>
+                          <td><span className="cefr-badge">{langItem.spokenProduction}</span></td>
+                          <td><span className="cefr-badge">{langItem.writing}</span></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <div style={{ fontSize: '0.725rem', color: '#64748b', marginTop: '0.3rem', fontStyle: 'italic' }}>{t.cefrNote}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {digitalSkills.length > 0 && (
+          <div className="europass-section-row">
+            <div className="europass-section-title">{t.digitalSkills}</div>
+            <div className="europass-section-content">
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                {digitalSkills.map((skill, idx) => <span className="skill-chip" key={idx}>{skill}</span>)}
               </div>
             </div>
-          ))}
-        </section>
-      )}
+          </div>
+        )}
 
-      {/* Mother Tongue & Foreign Languages */}
-      {languages.length > 0 && (
-        <section>
-          <h2 className="europass-section-header">{t.languageSkills}</h2>
-          {languages.filter(l => l.isMotherTongue).length > 0 && (
-            <div style={{ marginBottom: '0.75rem' }}>
-              <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>{t.motherTongue}: </span>
-              <span style={{ fontWeight: 600, color: primaryColor }}>
-                {languages.filter(l => l.isMotherTongue).map(l => l.language).join(', ')}
-              </span>
-            </div>
-          )}
-
-          {languages.filter(l => !l.isMotherTongue).length > 0 && (
-            <div>
-              <div style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.4rem' }}>{t.otherLanguages}:</div>
-              <table className="cefr-table">
-                <thead>
-                  <tr>
-                    <th rowSpan={2} style={{ textAlign: 'left', width: '22%' }}>{SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name || 'Language'}</th>
-                    <th colSpan={2}>{t.understanding}</th>
-                    <th colSpan={2}>{t.speaking}</th>
-                    <th>{t.writing}</th>
-                  </tr>
-                  <tr>
-                    <th>{t.listening}</th>
-                    <th>{t.reading}</th>
-                    <th>{t.spokenInteraction}</th>
-                    <th>{t.spokenProduction}</th>
-                    <th>{t.writing}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {languages.filter(l => !l.isMotherTongue).map((langItem) => (
-                    <tr key={langItem.id}>
-                      <td style={{ textAlign: 'left', fontWeight: 700 }}>{langItem.language}</td>
-                      <td><span className="cefr-badge">{langItem.listening}</span></td>
-                      <td><span className="cefr-badge">{langItem.reading}</span></td>
-                      <td><span className="cefr-badge">{langItem.spokenInteraction}</span></td>
-                      <td><span className="cefr-badge">{langItem.spokenProduction}</span></td>
-                      <td><span className="cefr-badge">{langItem.writing}</span></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div style={{ fontSize: '0.725rem', color: '#64748b', marginTop: '0.3rem', fontStyle: 'italic' }}>
-                {t.cefrNote}
+        {skillsList.length > 0 && (
+          <div className="europass-section-row">
+            <div className="europass-section-title">{t.managementSkills}</div>
+            <div className="europass-section-content">
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                {skillsList.map((skill, idx) => <span className="skill-chip" key={idx} style={{ background: '#f1f5f9', color: '#1e293b', borderColor: '#cbd5e1' }}>{skill}</span>)}
               </div>
             </div>
-          )}
-        </section>
-      )}
-
-      {/* Digital Skills */}
-      {digitalSkills.length > 0 && (
-        <section>
-          <h2 className="europass-section-header">{t.digitalSkills}</h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-            {digitalSkills.map((skill, idx) => (
-              <span className="skill-chip" key={idx}>
-                {skill}
-              </span>
-            ))}
           </div>
-        </section>
-      )}
+        )}
 
-      {/* Soft & Organisational Skills */}
-      {skillsList.length > 0 && (
-        <section>
-          <h2 className="europass-section-header">{t.managementSkills}</h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-            {skillsList.map((skill, idx) => (
-              <span className="skill-chip" key={idx} style={{ background: '#f1f5f9', color: '#1e293b', borderColor: '#cbd5e1' }}>
-                {skill}
-              </span>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Driving Licences */}
-      {drivingLicences.length > 0 && (
-        <section>
-          <h2 className="europass-section-header">{t.drivingLicence}</h2>
-          <p style={{ fontWeight: 600, color: '#334155' }}>
-            {t.drivingLicenceCategory}: {drivingLicences.join(', ')}
-          </p>
-        </section>
-      )}
-
-      {/* Custom Sections */}
-      {customSections.map((sec) => (
-        <section key={sec.id}>
-          <h2 className="europass-section-header">{sec.title}</h2>
-          <p style={{ whiteSpace: 'pre-line', color: '#334155', fontSize: '0.875rem' }}>
-            {sec.content}
-          </p>
-        </section>
-      ))}
-
-      {/* Declaration / Certification */}
-      {personal.declaration && personal.declaration.trim() !== '' && (
-        <section style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid #cbd5e1' }}>
-          <h2 className="europass-section-header" style={{ marginBottom: '0.75rem', fontSize: '1rem' }}>{t.declaration || 'Declaration'}</h2>
-          <p style={{ fontStyle: 'italic', color: '#475569', fontSize: '0.85rem', lineHeight: '1.5' }}>
-            {personal.declaration}
-          </p>
-          <div style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-            <div>
-              <div style={{ borderBottom: '1px solid #94a3b8', width: '150px', marginBottom: '0.5rem' }}></div>
-              <span style={{ fontSize: '0.8rem', color: '#64748b' }}>{t.dateLocation || 'Date / Location'}</span>
-            </div>
-            <div>
-              <div style={{ borderBottom: '1px solid #94a3b8', width: '180px', marginBottom: '0.5rem' }}></div>
-              <span style={{ fontSize: '0.8rem', color: '#64748b' }}>{t.signature || 'Signature'}</span>
+        {drivingLicences.length > 0 && (
+          <div className="europass-section-row">
+            <div className="europass-section-title">{t.drivingLicence}</div>
+            <div className="europass-section-content">
+              <p style={{ fontWeight: 600, color: '#334155' }}>{t.drivingLicenceCategory}: {drivingLicences.join(', ')}</p>
             </div>
           </div>
-        </section>
-      )}
+        )}
+
+        {customSections.map((sec) => (
+          <div className="europass-section-row" key={sec.id}>
+            <div className="europass-section-title">{sec.title}</div>
+            <div className="europass-section-content">
+              <p style={{ whiteSpace: 'pre-line', color: '#334155', fontSize: '0.875rem' }}>{sec.content}</p>
+            </div>
+          </div>
+        ))}
+
+        {personal.declaration && personal.declaration.trim() !== '' && (
+          <div className="europass-section-row">
+            <div className="europass-section-title">{t.declaration || 'Declaration'}</div>
+            <div className="europass-section-content">
+              <p style={{ fontStyle: 'italic', color: '#475569', fontSize: '0.85rem', lineHeight: '1.5' }}>{personal.declaration}</p>
+              <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                <div>
+                  <div style={{ borderBottom: '1px solid #94a3b8', width: '150px', marginBottom: '0.5rem' }}></div>
+                  <span style={{ fontSize: '0.8rem', color: '#64748b' }}>{t.dateLocation || 'Date / Location'}</span>
+                </div>
+                <div>
+                  <div style={{ borderBottom: '1px solid #94a3b8', width: '180px', marginBottom: '0.5rem' }}></div>
+                  <span style={{ fontSize: '0.8rem', color: '#64748b' }}>{t.signature || 'Signature'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

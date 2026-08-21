@@ -31,8 +31,9 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          GH_PAGES: 'true'
+
+      - name: Add CNAME for rbcking.dpdns.org
+        run: echo "rbcking.dpdns.org" > dist/CNAME
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

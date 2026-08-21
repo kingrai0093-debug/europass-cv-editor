@@ -1060,7 +1060,7 @@ textarea.form-control {
     transform: translate(-50%, -50%);
     width: 420px;
     height: 247px;
-    background: url('/europass-cv-editor/nepal.png') center / contain no-repeat;
+    background: url('/nepal.png') center / contain no-repeat;
     opacity: 0.14;
     pointer-events: none;
     z-index: 9999;
@@ -1136,7 +1136,7 @@ textarea.form-control {
 }
 
 /* Mobile Responsiveness for Android/Phones */
-@media screen and (max-width: 1px) {
+@media screen and (max-width: 1024px) {
   .main-content {
     grid-template-columns: 1fr;
     padding: 1rem;

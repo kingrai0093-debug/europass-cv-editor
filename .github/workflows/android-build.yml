@@ -35,8 +35,10 @@ jobs:
     - name: Build Web App
       run: npm run build
 
-    - name: Sync Capacitor
-      run: npx cap sync android
+    - name: Init Capacitor Android (if missing)
+      run: |
+        if [ ! -d android ]; then npx cap add android; fi
+        npx cap sync android
 
     - name: Build APK
       working-directory: android

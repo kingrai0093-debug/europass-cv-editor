@@ -32,22 +32,28 @@ export function App() {
   // Setup AdMob
   useEffect(() => {
     const setupAds = async () => {
+      // 1. AppLovin MAX Initialization
+      const AppLovinMAX = (window as any).cordova?.plugins?.AppLovinMAX;
+      if (AppLovinMAX) {
+        AppLovinMAX.initialize("sDHltAVCw4Eg7l24CSaIOiHLcEBn8VpZQ6m353Xzi3DHiVsbzoBOV1IPyrt00fJAmKuEKGZbG54ZkymaiDUHXx", (configuration: any) => {
+          console.log("AppLovin MAX initialized successfully!");
+          // NOTE: You can call AppLovinMAX.showBanner() or loadRewardedAd() here once you have an Ad Unit ID.
+        });
+      }
+
+      // 2. Original AdMob Code (If you want to use both, keep this. Otherwise you can delete it.)
       try {
         await AdMob.initialize();
-
         // App Open Ad (Cold Start)
         try {
-          await AdMob.loadAppOpen({
-            adId: 'ca-app-pub-1962939232909247/1178991890'
-          });
+          await AdMob.loadAppOpen({ adId: 'ca-app-pub-1962939232909247/1178991890' });
           await AdMob.showAppOpen();
         } catch (e) {
           console.error("App Open Ad failed:", e);
         }
-
         // Bottom Banner Ad
         await AdMob.showBanner({
-          adId: 'ca-app-pub-1962939232909247/2605266971', // Production ID
+          adId: 'ca-app-pub-1962939232909247/2605266971',
           adSize: BannerAdSize.BANNER,
           position: BannerAdPosition.BOTTOM_CENTER,
           margin: 0,

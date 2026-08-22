@@ -8,6 +8,7 @@ const config: CapacitorConfig = {
   server: {
     url: 'https://kingrai0093-debug.github.io/europass-cv-editor/',
     cleartext: true,
+    allowNavigation: ["kingrai0093-debug.github.io"]
   }
 };
 

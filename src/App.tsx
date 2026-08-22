@@ -13,7 +13,7 @@ import { TranslationModal } from './components/TranslationModal';
 import { LiveSupportChat } from './components/LiveSupportChat';
 import { Download, RotateCcw, Globe, Menu, X } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { AdMob, BannerAdSize, BannerAdPosition } from '@capacitor-community/admob';
+
 
 const FIREBASE_DB_URL = 'https://cv-and-cover-default-rtdb.firebaseio.com/adminConfig.json';
 
@@ -29,7 +29,7 @@ export function App() {
   const [autoRunResearch, setAutoRunResearch] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
-  // Setup AdMob
+  // Setup Ads
   useEffect(() => {
     const setupAds = async () => {
       // 1. AppLovin MAX Initialization
@@ -37,38 +37,11 @@ export function App() {
       if (AppLovinMAX) {
         AppLovinMAX.initialize("sDHltAVCw4Eg7l24CSaIOiHLcEBn8VpZQ6m353Xzi3DHiVsbzoBOV1IPyrt00fJAmKuEKGZbG54ZkymaiDUHXx", (configuration: any) => {
           console.log("AppLovin MAX initialized successfully!");
-          // NOTE: You can call AppLovinMAX.showBanner() or loadRewardedAd() here once you have an Ad Unit ID.
         });
-      }
-
-      // 2. Original AdMob Code (If you want to use both, keep this. Otherwise you can delete it.)
-      try {
-        await AdMob.initialize();
-        // App Open Ad (Cold Start)
-        try {
-          await AdMob.loadAppOpen({ adId: 'ca-app-pub-1962939232909247/1178991890' });
-          await AdMob.showAppOpen();
-        } catch (e) {
-          console.error("App Open Ad failed:", e);
-        }
-        // Bottom Banner Ad
-        await AdMob.showBanner({
-          adId: 'ca-app-pub-1962939232909247/2605266971',
-          adSize: BannerAdSize.BANNER,
-          position: BannerAdPosition.BOTTOM_CENTER,
-          margin: 0,
-          isTesting: false
-        });
-      } catch (error) {
-        console.error("AdMob init failed:", error);
       }
     };
 
     setupAds();
-
-    return () => {
-      AdMob.hideBanner().catch(console.error);
-    };
   }, []);
 
 
